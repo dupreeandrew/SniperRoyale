@@ -66,21 +66,16 @@ public enum GameQueue implements GameEndListener, Listener {
         }
     }
 
-    public boolean removePlayer(Player p) {
+    public void removePlayerIfInQueue(Player p) {
         String playerName = p.getName();
 
-        if (!playerIsInQueue(p)) {
-            return false;
+        if (playerIsInQueue(p)) {
+            queueSet.remove(playerName);
         }
-
-        queueSet.remove(playerName);
-        return true;
-
+        
     }
 
     public boolean startGame() {
-
-        removeOfflinePlayersFromQueue();
 
         if (gameIsStarted) {
             return false;
@@ -101,24 +96,9 @@ public enum GameQueue implements GameEndListener, Listener {
 
     public List<String> getPlayerNames() {
         List<String> playerNames = new ArrayList<>();
-
-        for (String playerName : queueSet) {
-            playerNames.add(playerName);
-        }
-
+        playerNames.addAll(queueSet);
         return playerNames;
     }
-
-
-    private void removeOfflinePlayersFromQueue() {
-        for (String playerAsString : queueSet) {
-            OfflinePlayer testPlayer = Bukkit.getOfflinePlayer(playerAsString);
-            if (!testPlayer.isOnline()) {
-                queueSet.remove(playerAsString);
-            }
-        }
-    }
-
 
     @Override
     public void onGameEnd() {
