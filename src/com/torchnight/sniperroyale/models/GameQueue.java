@@ -72,7 +72,7 @@ public enum GameQueue implements GameEndListener, Listener {
         if (playerIsInQueue(p)) {
             queueSet.remove(playerName);
         }
-        
+
     }
 
     public boolean startGame() {

@@ -3,6 +3,7 @@ package com.torchnight.sniperroyale;
 import com.torchnight.sniperroyale.commands.SniperRoyale;
 import com.torchnight.sniperroyale.commands.iCommand;
 import com.torchnight.sniperroyale.listeners.GrenadeListener;
+import com.torchnight.sniperroyale.listeners.LeaveListener;
 import com.torchnight.sniperroyale.listeners.SneakListener;
 import com.torchnight.sniperroyale.listeners.SniperListener;
 import com.torchnight.sniperroyale.models.BanManager;
@@ -26,7 +27,7 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        this.instance = this;
+        instance = this;
         getLogger().info("Sniper Royale has been enabled.");
         enableListeners();
         saveDefaultConfig();
@@ -53,6 +54,7 @@ public class Main extends JavaPlugin {
         pm.registerEvents(new SneakListener(config), this);
         pm.registerEvents(new SniperListener(this), this);
         pm.registerEvents(new GrenadeListener(), this);
+        pm.registerEvents(new LeaveListener(), this);
     }
 
     public static void registerListener(Listener listener) {
@@ -88,12 +90,7 @@ public class Main extends JavaPlugin {
     public static void scheduleRepeatingTask(Runnable runnable, long ticksDelay, long ticksDuration) {
         BukkitScheduler scheduler = Bukkit.getScheduler();
         int id = scheduler.scheduleSyncRepeatingTask(instance, runnable, 0L, ticksDelay);
-        scheduler.scheduleSyncDelayedTask(instance, new Runnable() {
-            @Override
-            public void run() {
-                scheduler.cancelTask(id);
-            }
-        }, ticksDuration);
+        scheduler.scheduleSyncDelayedTask(instance, () -> scheduler.cancelTask(id), ticksDuration);
     }
 
     public static FileConfiguration getTheConfig() {
