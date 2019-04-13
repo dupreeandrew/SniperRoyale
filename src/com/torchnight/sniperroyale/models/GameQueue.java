@@ -4,9 +4,7 @@ import com.torchnight.sniperroyale.Main;
 import com.torchnight.sniperroyale.listeners.GameEndListener;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 import java.util.ArrayList;
@@ -72,6 +70,7 @@ public enum GameQueue implements GameEndListener, Listener {
         if (playerIsInQueue(p)) {
             queueSet.remove(playerName);
         }
+
 
     }
 

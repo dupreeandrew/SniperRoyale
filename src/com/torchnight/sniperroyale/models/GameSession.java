@@ -112,12 +112,12 @@ public class GameSession implements Listener {
     @EventHandler
     public void onMagicalDeath(PlayerDeathEvent event) {
 
-        event.setKeepInventory(true);
-
         Player playerThatDied = event.getEntity();
         if (!playerIsInMap(playerThatDied)) {
             return;
         }
+
+        event.setKeepInventory(true);
         playerThatDied.spigot().respawn();
 
         /*

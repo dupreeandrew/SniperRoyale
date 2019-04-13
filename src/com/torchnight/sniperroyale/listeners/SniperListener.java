@@ -49,16 +49,14 @@ public class SniperListener implements Listener {
             transformArrowToSniperBullet(arrowEntity);
             arrowEntitySet.add(arrowEntity);
             BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
-            scheduler.scheduleSyncDelayedTask(pl, new Runnable() {
-                @Override
-                public void run() {
-                    arrowEntitySet.remove(arrowEntity);
-                    arrowEntity.remove();
-                }
+            scheduler.scheduleSyncDelayedTask(pl, () -> {
+                arrowEntitySet.remove(arrowEntity);
+                arrowEntity.remove();
             }, 140L);
 
 
             playerReloaders.add(shooter);
+
             Main.scheduleRepeatingTask(new Runnable() {
 
                 private int ticksToFinish = 60;
@@ -96,7 +94,7 @@ public class SniperListener implements Listener {
     }
 
     private boolean isHoldingCorrectBow(Player player) {
-        final String bowName = ChatColor.BLUE + "The Almighty Sniper";
+        final String bowName = ChatColor.RED + "The Almighty Sniper";
         return player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equals(bowName);
     }
 }

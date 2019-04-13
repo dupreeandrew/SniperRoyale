@@ -9,8 +9,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemFactory {
-    public static void giveSniper(Player p) {
+class ItemFactory {
+    static void giveSniper(Player p) {
         ItemStack sniperBow = new ItemStack(Material.BOW, 1);
         setSniperMeta(sniperBow);
         p.getInventory().addItem(sniperBow);
@@ -19,7 +19,7 @@ public class ItemFactory {
     private static void setSniperMeta(ItemStack sniperBow) {
         ItemMeta sniperMeta = sniperBow.getItemMeta();
 
-        final String NAME = ChatColor.BLUE + "The Almighty Sniper";
+        final String NAME = ChatColor.RED + "The Almighty Sniper";
         final String[] loreLines = {
                 "&6Legendary Item",
                 "&e- Shoots 7x faster than a bow",
@@ -27,7 +27,7 @@ public class ItemFactory {
                 "&e- Arrows do not have gravity"
         };
 
-        sniperMeta.setDisplayName(ChatColor.BLUE + "The Almighty Sniper");
+        sniperMeta.setDisplayName(NAME);
         sniperMeta.setLore(convertStringArrayToColoredList(loreLines));
         sniperBow.setItemMeta(sniperMeta);
 
@@ -46,7 +46,7 @@ public class ItemFactory {
 
     }
 
-    public static void giveGrenades(Player p) {
+    static void giveGrenades(Player p) {
         ItemStack grenades = new ItemStack(Material.ENDER_PEARL, 8);
         ItemMeta grenadeMeta = grenades.getItemMeta();
         grenadeMeta.setDisplayName(ChatColor.GREEN + "Grenade");
